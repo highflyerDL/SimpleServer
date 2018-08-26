@@ -6,7 +6,11 @@ lazy val commonSettings = Seq(
 )
 
 lazy val libraries = Seq (
-  guice
+  guice,
+  evolutions,
+  jdbc,
+  "org.postgresql" % "postgresql" % "42.2.2",
+  "com.typesafe.play" %% "anorm" % "2.5.3"
 )
 
 lazy val dockerSettings = Seq(
