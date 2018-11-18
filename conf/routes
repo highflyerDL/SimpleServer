@@ -1,1 +1,2 @@
-GET     /                           controllers.HomeController.index
+POST     /accounts/:accountId/balance                            controllers.AccountController.balancePOST(accountId: Int)
+GET      /accounts/:accountId                                    controllers.AccountController.getAccount(accountId: Int)
