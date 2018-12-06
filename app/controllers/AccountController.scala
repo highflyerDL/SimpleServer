@@ -10,6 +10,7 @@ import play.api.mvc._
 import services.AccountService
 
 import scala.concurrent.{ExecutionContext, Future}
+import scala.util.control.NonFatal
 
 class AccountController @Inject()
 (cc: ControllerComponents, accountService: AccountService)(implicit ec: ExecutionContext)
@@ -27,10 +28,18 @@ class AccountController @Inject()
         }
 
       case Left(e) =>
+        logger.error(s"Error getting account", e)
         respondWithError(
           "Internal Server Error occurred",
           INTERNAL_SERVER_ERROR,
           e.msg)
+    } recover {
+      case NonFatal(e) =>
+        logger.error("Error getting account", e)
+        respondWithError(
+          "Internal Server Error occurred",
+          INTERNAL_SERVER_ERROR,
+          e.getMessage)
     }
   }
 
@@ -42,6 +51,7 @@ class AccountController @Inject()
             accountService.withdraw(id, request.amount) map {
               case Right(_) => NoContent
               case Left(exception) =>
+                logger.error(s"Error withdrawing", exception)
                 exception match {
                   case DatabaseException(msg) =>
                     respondWithError(
@@ -54,11 +64,19 @@ class AccountController @Inject()
                       BAD_REQUEST,
                       "")
                 }
+            } recover {
+              case NonFatal(e) =>
+                logger.error("Error withdrawing", e)
+                respondWithError(
+                  "Internal Server Error occurred",
+                  INTERNAL_SERVER_ERROR,
+                  e.getMessage)
             }
           case BalanceRequestType.Deposit =>
             accountService.deposit(id, request.amount) map {
               case Right(_) => NoContent
               case Left(exception) =>
+                logger.error(s"Error depositing", exception)
                 exception match {
                   case DatabaseException(msg) =>
                     respondWithError(
@@ -66,6 +84,13 @@ class AccountController @Inject()
                       INTERNAL_SERVER_ERROR,
                       msg)
                 }
+            } recover {
+              case NonFatal(e) =>
+                logger.error("Error depositing", e)
+                respondWithError(
+                  "Internal Server Error occurred",
+                  INTERNAL_SERVER_ERROR,
+                  e.getMessage)
             }
         }
       }

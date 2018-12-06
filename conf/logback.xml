@@ -1,0 +1,54 @@
+<configuration>
+
+    <!-- <conversionRule conversionWord="coloredLevel" converterClass="play.api.libs.logback.ColoredLevel" /> -->
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%date{YYYY-MM-dd HH:mm:ss.SSS 'UTC',UTC}] %level %thread %logger{15}\(%file:%line\): %message%n%xException{10}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ASYNCSTDOUT" class="ch.qos.logback.classic.AsyncAppender">
+        <includeCallerData>true</includeCallerData>
+        <appender-ref ref="STDOUT" />
+    </appender>
+
+
+    <appender name="STDOUT-LIBS" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%date{YYYY-MM-dd HH:mm:ss.SSS 'UTC',UTC}] %level-LIBS %thread %logger{15}\(%file:%line\): %replace(%message){'\n', ' '}%n%replace(%xException{10}){'\n\t', ' '}%nopex</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ASYNCSTDOUT-LIBS" class="ch.qos.logback.classic.AsyncAppender">
+        <includeCallerData>true</includeCallerData>
+        <appender-ref ref="STDOUT-LIBS" />
+    </appender>
+
+    <logger name="com.lightstep.tracer.jre.JRETracer" level="WARN" additivity="false">
+        <appender-ref ref="ASYNCSTDOUT-LIBS" />
+    </logger>
+
+    <!-- Root logger -->
+    <logger name="root" level="WARN" />
+    <!-- Logger used by the framework -->
+    <logger name="play" level="WARN" />
+    <!-- Logger provided to the application -->
+    <logger name="application" level="INFO" />
+
+    <logger name="controllers" level="DEBUG" />
+    <logger name="dao" level="DEBUG" />
+    <logger name="helper" level="DEBUG" />
+    <logger name="jobs" level="DEBUG" />
+    <logger name="models" level="DEBUG" />
+    <logger name="schedulers" level="ERROR" />
+    <logger name="services" level="DEBUG" />
+
+    <logger name="org.jdbcdslog.ConnectionLogger" level="OFF"  /> <!-- Won't log connections -->
+    <logger name="org.jdbcdslog.StatementLogger"  level="OFF" /> <!-- Will log all statements -->
+    <logger name="org.jdbcdslog.ResultSetLogger"  level="OFF"  />
+
+    <root level="WARN">
+        <appender-ref ref="ASYNCSTDOUT" />
+    </root>
+</configuration>

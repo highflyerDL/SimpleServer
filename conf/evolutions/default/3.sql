@@ -877,7 +877,7 @@ insert into customer (c_id, c_first_name, c_last_name, c_email) values (873, 'Vo
 insert into customer (c_id, c_first_name, c_last_name, c_email) values (874, 'Rubina', 'Taffs', 'rtaffso9@simplemachines.org');
 insert into customer (c_id, c_first_name, c_last_name, c_email) values (875, 'Cornelius', 'Northcliffe', 'cnorthcliffeoa@blog.com');
 insert into customer (c_id, c_first_name, c_last_name, c_email) values (876, 'Carroll', 'Rides', 'cridesob@mapquest.com');
-insert into customer (c_id, c_first_name, c_last_name, c_email) values (877, 'Raff', 'Frenzel;', 'rfrenzeloc@shop-pro.jp');
+insert into customer (c_id, c_first_name, c_last_name, c_email) values (877, 'Raff', 'Frenzel', 'rfrenzeloc@shop-pro.jp');
 insert into customer (c_id, c_first_name, c_last_name, c_email) values (878, 'Nichole', 'Oury', 'nouryod@samsung.com');
 insert into customer (c_id, c_first_name, c_last_name, c_email) values (879, 'Dorolice', 'Coda', 'dcodaoe@admin.ch');
 insert into customer (c_id, c_first_name, c_last_name, c_email) values (880, 'Cassie', 'Desport', 'cdesportof@stumbleupon.com');

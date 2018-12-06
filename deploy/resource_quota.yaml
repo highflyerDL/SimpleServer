@@ -4,8 +4,8 @@ metadata:
   name: mem-cpu-quota
 spec:
   hard:
-    requests.cpu: "1"
-    requests.memory: 1Gi
-    limits.cpu: "2"
-    limits.memory: 2Gi
+    requests.cpu: "1.1"
+    requests.memory: 1.1Gi
+    limits.cpu: "2.1"
+    limits.memory: 2.1Gi
 

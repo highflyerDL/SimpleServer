@@ -12,7 +12,7 @@ metadata:
 spec:
   progressDeadlineSeconds: 600
   replicas: 1
-  revisionHistoryLimit: 2
+  revisionHistoryLimit: 0
   selector:
     matchLabels:
       run: http-server
@@ -28,20 +28,33 @@ spec:
         run: http-server
     spec:
       containers:
-      - image: simpleserver:0.1
-        imagePullPolicy: Never
+      - image: simpleserver:0.3
+        imagePullPolicy: IfNotPresent
         name: http-server
         ports:
         - containerPort: 9000
           protocol: TCP
-        resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
+        resources:
+          requests:
+            memory: "750Mi"
+            cpu: "0.75"
+          limits:
+            memory: "1500Mi"
+            cpu: "1.5"
       - image: postgres:10.0
         name: postgres
         ports:
         - containerPort: 5432
           protocol: TCP
+        resources:
+          requests:
+            memory: "250Mi"
+            cpu: "0.25"
+          limits:
+            memory: "500Mi"
+            cpu: "0.5"
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
