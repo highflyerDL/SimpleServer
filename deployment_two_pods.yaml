@@ -11,7 +11,7 @@ metadata:
   selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/http-server
 spec:
   progressDeadlineSeconds: 600
-  replicas: 1
+  replicas: 2
   revisionHistoryLimit: 0
   selector:
     matchLabels:
@@ -28,7 +28,7 @@ spec:
         run: http-server
     spec:
       containers:
-      - image: simpleserver:0.8
+      - image: simpleserver:0.5
         imagePullPolicy: Never
         name: http-server
         ports:
@@ -38,11 +38,11 @@ spec:
         terminationMessagePolicy: File
         resources:
           requests:
-            memory: "800Mi"
-            cpu: "0.2"
+            memory: "400Mi"
+            cpu: "0.1"
           limits:
-            memory: "1200Mi"
-            cpu: "0.4"
+            memory: "600Mi"
+            cpu: "0.2"
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler

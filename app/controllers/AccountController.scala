@@ -63,6 +63,11 @@ class AccountController @Inject()
                       "Insufficient balance to withdraw",
                       BAD_REQUEST,
                       "")
+                  case e =>
+                    respondWithError(
+                      "Internal Server Error occurred",
+                      INTERNAL_SERVER_ERROR,
+                      e.getMessage)
                 }
             } recover {
               case NonFatal(e) =>
@@ -83,6 +88,11 @@ class AccountController @Inject()
                       "Internal Server Error occurred",
                       INTERNAL_SERVER_ERROR,
                       msg)
+                  case e =>
+                    respondWithError(
+                      "Internal Server Error occurred",
+                      INTERNAL_SERVER_ERROR,
+                      e.getMessage)
                 }
             } recover {
               case NonFatal(e) =>

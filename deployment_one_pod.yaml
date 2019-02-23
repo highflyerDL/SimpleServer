@@ -28,7 +28,7 @@ spec:
         run: http-server
     spec:
       containers:
-      - image: simpleserver:0.8
+      - image: simpleserver:0.6
         imagePullPolicy: Never
         name: http-server
         ports:
@@ -38,11 +38,11 @@ spec:
         terminationMessagePolicy: File
         resources:
           requests:
-            memory: "800Mi"
-            cpu: "0.2"
+            memory: "2400Mi"
+            cpu: "0.6"
           limits:
-            memory: "1200Mi"
-            cpu: "0.4"
+            memory: "3600Mi"
+            cpu: "1.2"
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler

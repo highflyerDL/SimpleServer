@@ -1,0 +1,17 @@
+apiVersion: v1
+data:
+  default.vcl: "vcl 4.0;\nbackend default {\n  .host = \"http-server\";\n  .port =
+    \"9000\";\n}\n\nsub vcl_recv {\n    if (req.method == \"GET\" && req.http.X-cached-enabled)
+    {\n\treturn (hash);\n    }\n    return (pass);\n}\n\nsub vcl_backend_response
+    {\n    if (beresp.ttl <= 0s ||\n      beresp.http.Set-Cookie ||\n      beresp.http.Surrogate-control
+    ~ \"no-store\" ||\n      (!beresp.http.Surrogate-Control &&\n        beresp.http.Cache-Control
+    ~ \"no-cache|no-store|private\") ||\n      beresp.http.Vary == \"*\") {\n        /*\n
+    \       * Mark as \"Hit-For-Pass\" for the next 2 minutes\n        */\n        set
+    beresp.ttl = 30m;\n        set beresp.uncacheable = true;\n    }\n    return (deliver);\n}\n\nsub
+    vcl_deliver {\n    if (obj.hits > 0) {\n        set resp.http.X-Cache = \"HIT\";\n
+    \   } else {\n        set resp.http.X-Cache = \"MISS\";\n    }\n    return (deliver);\n}\n\n"
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: varnish-config
+  selfLink: /api/v1/namespaces/default/configmaps/varnish-config
