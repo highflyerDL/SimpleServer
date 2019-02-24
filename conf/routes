@@ -1,3 +1,3 @@
 POST     /accounts/:accountId/balance                            controllers.AccountController.balancePOST(accountId: Int)
 GET      /accounts/:accountId                                    controllers.AccountController.getAccount(accountId: Int)
-GET      /exchanges/eur_usd                                      controllers.ExchangeController.getEurToUsd
+GET      e                                     controllers.ExchangeController.getEurToUsd
