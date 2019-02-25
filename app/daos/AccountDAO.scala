@@ -3,6 +3,7 @@ package daos
 import anorm._
 import helpers.Exceptions.DatabaseException
 import javax.inject.Inject
+import models.Account
 import models.Account._
 import play.api.db.Database
 
@@ -10,7 +11,7 @@ import scala.concurrent.{ExecutionContext, Future}
 import scala.util.Try
 
 class AccountDAO @Inject()(db: Database)(implicit ec: ExecutionContext) {
-  def get(id: Int) =
+  def get(id: Int): Future[Either[DatabaseException, Option[Account]]] =
     Future {
       Try {
         db.withConnection { implicit connection =>
